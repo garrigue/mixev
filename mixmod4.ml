@@ -17,7 +17,7 @@ module VarT = struct
   type exp = [`Var of string]
 end
 module type VarS = sig
-  type exp0 as [> VarT.exp]
+  type exp0 = private [> VarT.exp]
   include E with type exp = exp0
 end
 module Var(E : VarS) =
@@ -35,7 +35,7 @@ module LamT = struct
   type 'e exp = [VarT.exp | `Abs of string * 'e | `App of 'e * 'e]
 end
 module type LamS = sig
-  type exp0 as [> exp0 LamT.exp]
+  type exp0 = private [> exp0 LamT.exp]
   include E with type exp = exp0
 end
 module Lam(E : LamS) =
@@ -76,7 +76,7 @@ module ExprT = struct
       [ `Var of string | `Num of int | `Add of 'e * 'e | `Mult of 'e * 'e]
 end
 module type ExprS = sig
-  type exp0 as [> exp0 ExprT.exp]
+  type exp0 = private [> exp0 ExprT.exp]
   include E with type exp = exp0
 end
 module Expr(E : ExprS) =
@@ -120,7 +120,7 @@ module LExprT = struct
   type 'e exp = [ 'e LamT.exp | 'e ExprT.exp ]
 end
 module type LExprS = sig
-  type exp0 as [> exp0 LExprT.exp]
+  type exp0 = private [> exp0 LExprT.exp]
   include E with type exp = exp0
 end
 module LExpr(E : LExprS) =

@@ -18,7 +18,7 @@ module type E =
 module VarT = struct
   type exp = [`Var of string]
 end
-module Var(E : E with type exp as [> VarT.exp]) =
+module Var(E : E with type exp = private [> VarT.exp]) =
   struct
     type exp0 = VarT.exp
     type exp = E.exp
@@ -32,7 +32,7 @@ let gensym = let n = ref 0 in fun () -> incr n; "_" ^ string_of_int !n
 module LamT = struct
   type 'e exp = [VarT.exp | `Abs of string * 'e | `App of 'e * 'e]
 end
-module Lam(E : E with type exp as ([> 'e LamT.exp] as 'e)) =
+module Lam(E : E with type exp = private ([> 'e LamT.exp] as 'e)) =
   struct
     type exp0 = E.exp LamT.exp
     type exp = E.exp
@@ -64,7 +64,7 @@ module ExprT = struct
       [ `Var of string | `Num of int | `Add of 'e * 'e | `Mult of 'e * 'e]
 end
 
-module Expr(E : E with type exp as ([> 'e ExprT.exp] as 'e)) =
+module Expr(E : E with type exp = private ([> 'e ExprT.exp] as 'e)) =
   struct
     type exp0 = E.exp ExprT.exp
     type exp = E.exp
@@ -100,7 +100,7 @@ let e2 = ExprF.eval [] (`Add(`Mult(`Num 3, `Num 2), `Var"x"));;
 module LExprT = struct
   type 'e exp = [ 'e LamT.exp | 'e ExprT.exp ]
 end
-module LExpr(E : E with type exp as ([> 'e LExprT.exp] as 'e)) =
+module LExpr(E : E with type exp = private ([> 'e LExprT.exp] as 'e)) =
   struct
     type exp0 = E.exp LExprT.exp
     type exp = E.exp
