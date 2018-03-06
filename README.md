@@ -2,9 +2,10 @@
 Mixin evaluators for the expression problem.
 
 These evaluators are based on variant-reuse.pdf:
-    Jacques Garrigue: Code reuse through polymorphic variants
-    In <em>Workshop on Foundations of Software Engineering</em>.
-    Sasaguri, Japan, November 2000.
+
+Jacques Garrigue: Code reuse through polymorphic variants.
+In <em>Workshop on Foundations of Software Engineering</em>.
+Sasaguri, Japan, November 2000.
 
 * mixev.ml:
   The evaluator presented in the paper.
